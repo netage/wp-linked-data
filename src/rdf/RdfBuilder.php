@@ -47,6 +47,12 @@ class RdfBuilder {
         $post_resource->set ('sioc:content', strip_tags($post->post_content));
         $post_resource->set ('dc:modified', \EasyRdf_Literal_Date::parse($post->post_modified));
         $post_resource->set ('dc:created', \EasyRdf_Literal_Date::parse($post->post_date));
+		
+		$images = get_attached_media('image', $post->ID);
+		foreach($images as $image) {
+			 $imgResource = $graph->resource (wp_get_attachment_image_src($image->ID,'full')[0]);
+			 $post_resource->set ('foaf:img',  $imgResource); 
+		 }
 
         $author = get_userdata ($post->post_author);
         $accountUri = $this->webIdService->getAccountUri ($author);
