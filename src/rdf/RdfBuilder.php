@@ -52,8 +52,14 @@ class RdfBuilder {
 		foreach($images as $image) {
 			 $imgResource = $graph->resource (wp_get_attachment_image_src($image->ID,'full')[0]);
 			 $post_resource->set ('foaf:img',  $imgResource); 
-		 }
+		}
+		
+		$terms = wp_get_post_terms( $post->ID, "post_tag", array("fields" => "names"));
 
+		foreach ( $terms as $term ) {
+			$graph->add($post_resource, 'sioc:topic', $term);
+		}
+		
         $author = get_userdata ($post->post_author);
         $accountUri = $this->webIdService->getAccountUri ($author);
         $accountResource = $graph->resource ($accountUri, 'sioc:UserAccount');
