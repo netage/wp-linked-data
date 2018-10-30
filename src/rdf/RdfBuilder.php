@@ -48,6 +48,11 @@ class RdfBuilder {
         $post_resource->set ('dc:modified', \EasyRdf_Literal_Date::parse($post->post_modified));
         $post_resource->set ('dc:created', \EasyRdf_Literal_Date::parse($post->post_date));
 		
+		$uitruk = get_post_meta( get_the_ID(), 'uitruk' );	
+		if( !empty($uitruk) ) {	
+			$post_resource->set ('lhoi:uitruk', $uitruk[0]); 
+		}
+		 
 		$images = get_attached_media('image', $post->ID);
 		foreach($images as $image) {
 			 $imgResource = $graph->resource (wp_get_attachment_image_src($image->ID,'full')[0]);

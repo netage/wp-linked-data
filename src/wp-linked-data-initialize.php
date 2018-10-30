@@ -24,6 +24,7 @@ if (!class_exists ('WpLinkedDataInitializer')) {
         private function registerRdfNamespaces () {
             EasyRdf_Namespace::set ('bio', 'http://purl.org/vocab/bio/0.1/');
             EasyRdf_Namespace::set ('sioct', 'http://rdfs.org/sioc/types#');
+			EasyRdf_Namespace::set ('lhoi', 'http://vocab.linkedhub-oi.nl/begrippen#');
         }
 
         private function getSupportedContentNegotiation () {
